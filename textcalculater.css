@@ -1,0 +1,145 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;  /* Inherit the gradient */
+  filter: blur(10px);   /* Apply blur effect */
+  z-index: -1;          /* Keep background behind content */
+}
+
+/* Container styling for text area, button, and results */
+.container {
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+  z-index: 1;
+}
+
+.container:hover {
+  transform: translateY(-3px);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #666;
+  text-align: center;
+}
+
+/* Updated Textarea Styling */
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 2px solid #66a6ff; /* Attractive blue border */
+  background: rgba(240, 244, 248, 0.8); /* Light background with slight opacity */
+  border-radius: 6px;
+  resize: vertical;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+textarea:focus {
+  border-color: #007BFF;
+  background: #ffffff; /* Changes to white when focused */
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+/* Updated Button Styling */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+button:active {
+  background-color: #004494;
+  transform: translateY(1px);
+}
+
+/* Styling for the Results Section */
+.results {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9fafb;
+  border-radius: 4px;
+  border: 1px solid #eee;
+}
+
+.results p {
+  margin: 8px 0;
+  color: #333;
+}
+/* Flying animation for count values */
+@keyframes flyIn {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Style for animated count display */
+.result-count {
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #007BFF;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.result-count.animate {
+  animation: flyIn 0.6s ease-out forwards;
+}

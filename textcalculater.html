@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Text Analyzer</title>
+  <link rel="stylesheet" href="textcalculater.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Enhanced Text Analyzer</h1>
+    <p>Type or paste your text below and click "Analyze" to see a detailed analysis.</p>
+    <textarea id="textInput" rows="10" placeholder="Enter your text here..."></textarea>
+    <button onclick="analyzeText()">Calculate</button>
+    <div class="results">
+     <p><strong>Characters:</strong> <span id="characterCount" class="result-count">0</span></p>
+<p><strong>Words:</strong> <span id="wordCount" class="result-count">0</span></p>
+<p><strong>Numbers:</strong> <span id="numberCount" class="result-count">0</span></p>
+<p><strong>Lines:</strong> <span id="lineCount" class="result-count">0</span></p>
+<p><strong>Special Characters:</strong> <span id="specialCharCount" class="result-count">0</span></p>
+<p><strong>Longest Word:</strong> <span id="longestWord" class="result-count">N/A</span></p>
+<p><strong>Average Word Length:</strong> <span id="averageWordLength" class="result-count">0</span></p>
+
+    </div>
+  </div>
+
+  <script src="textcalculater.js"></script>
+</body>
+</html>
