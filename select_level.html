@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Difficulty - SpellEcho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 1.25rem;
+            color: white;
+            background-color: #4a5568;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl font-bold mb-4">Choose Difficulty Level</h1>
+        <button onclick="selectDifficulty('easy')" class="button">Easy</button>
+        <button onclick="selectDifficulty('medium')" class="button">Medium</button>
+        <button onclick="selectDifficulty('hard')" class="button">Hard</button>
+    </div>
+
+    <script>
+        function selectDifficulty(level) {
+            // Redirect to spellecho.html with the selected level as a query parameter
+            window.location.href = `spellecho.html?level=${level}`;
+        }
+    </script>
+</body>
+</html>

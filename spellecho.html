@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpellEcho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <style>
+        body {
+            background: url('https://www.transparenttextures.com/patterns/blackboard.png'); 
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            cursor: url('https://www.cursor.cc/cursor/32/32/cursor.png'), auto; 
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            border: 10px solid lightpink;
+        }
+        /* Enhanced Styling for Message */
+.message {
+    font-size: 1.5rem; /* Increased font size */
+    font-weight: bold;
+    margin-top: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    color: #fff; /* White text color for better contrast */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Subtle 3D effect */
+}
+
+/* Show the message with increased font size */
+.message.show {
+    opacity: 1;
+}
+
+       /* Title Styling with 3D Effect (No Animation) */
+.title {
+    font-size: 3rem; /* Large font size */
+    font-weight: 900; /* Extra bold */
+    color: #ff6b6b; /* Vivid color for the title */
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Arial Black', sans-serif; /* Bold and distinct font */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), 6px 6px 10px rgba(0, 0, 0, 0.15); /* 3D shadow */
+    margin-bottom: 0.5rem; /* Small gap below title */
+}
+
+/* Subtitle Styling with 3D Effect */
+.subtitle {
+    font-size: 1.8rem; /* Slightly larger font size for subtitle */
+    font-weight: bold;
+    color: #ffa07a; /* Softer color for subtitle */
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem; /* Increased distance below subtitle */
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); /* 3D shadow */
+}
+
+        /* Additional styles */
+/* Enhanced Styling for Letter and Input Boxes */
+.letter-box, .input-box {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700; /* Bolder font for better readability */
+    color: #333; /* Darker text color */
+    background-color: #f5f5f5; /* Light grey background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15), -2px -2px 4px rgba(255, 255, 255, 0.3); /* Light 3D shadow */
+    margin: 0.25rem;
+    border: 2px solid #ff7e5f; /* Coral border color */
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace; /* Font style */
+}
+
+/* Center text and cursor in the input boxes */
+.input-box {
+    text-align: center; /* Center cursor */
+    padding: 0; /* Remove default padding for better centering */
+    color: #333; /* Ensure text color is visible */
+}
+
+/* Subtle 3D effect for the text */
+.letter-box, .input-box {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* Lighter text shadow */
+}
+
+/* Focus Effect for Input Boxes */
+.input-box:focus {
+    background-color: #e0f7fa; /* Light blue background on focus */
+    outline: none;
+    border-color: #00796b; /* Teal border color on focus */
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Reduced shadow on focus */
+}
+
+/* Button Styling */
+.button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(145deg, #4CAF50, #3a9d40); /* Gradient green */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(255, 255, 255, 0.1); /* Subtle shadow */
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    background: linear-gradient(145deg, #3a9d40, #4CAF50);
+    transform: scale(1.05);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(255, 255, 255, 0.15);
+}
+
+/* Active effect for buttons */
+.button:active {
+    transform: scale(0.98);
+    background: linear-gradient(145deg, #3a9d40, #2e8b37);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="title">SpellEcho</p>
+        <p class="subtitle">Speak Freely, Spell Flawlessly</p>
+        <div id="jumbled-letters" class="flex space-x-2 mb-4 flex-wrap justify-center">
+            <!-- Jumbled letters will be inserted here -->
+        </div>
+        <div id="answer-boxes" class="flex space-x-2 mb-4 flex-wrap justify-center">
+            <!-- Answer boxes will be inserted here -->
+        </div>
+        <div class="flex space-x-4 mb-4 justify-center flex-wrap">
+            <button id="speak-btn" class="button bg-blue-700 text-white flex items-center space-x-2">
+                <i class="fas fa-microphone"></i>
+                <span>Speak</span>
+            </button>
+            <button id="show-answer-btn" class="button bg-yellow-600 text-white">Show Answer</button>
+        </div>
+        <p id="result-message" class="message"></p>
+    </div>
+
+    <script>
+        let words = [];
+        let currentWordIndex = 0;
+        let timeoutId;
+
+        const jumbledLettersContainer = document.getElementById("jumbled-letters");
+        const answerBoxesContainer = document.getElementById("answer-boxes");
+        const resultMessage = document.getElementById("result-message");
+
+        // URLs for different difficulty levels
+        const levelFiles = {
+            easy: 'https://raw.githubusercontent.com/sitaraman-newlife/sitaraman-newlife.Calculate.github.io/refs/heads/main/easy_words.json',
+            medium: 'https://raw.githubusercontent.com/sitaraman-newlife/sitaraman-newlife.Calculate.github.io/refs/heads/main/medium_words.json',
+            hard: 'https://raw.githubusercontent.com/sitaraman-newlife/sitaraman-newlife.Calculate.github.io/refs/heads/main/hard_words.json'
+        };
+
+        // Get difficulty level from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const difficultyLevel = urlParams.get('level') || 'easy'; // Default to 'easy' if no level is specified
+
+        async function fetchWords() {
+            const levelUrl = levelFiles[difficultyLevel];
+            try {
+                const response = await fetch(levelUrl);
+                const data = await response.json();
+                words = data.map(word => ({
+                    jumbled: word.split('').sort(() => 0.5 - Math.random()).join(''),
+                    correct: word.toUpperCase()
+                }));
+                loadWord(currentWordIndex);
+            } catch (error) {
+                console.error('Error fetching words:', error);
+            }
+        }
+
+        function loadWord(index) {
+            const word = words[index];
+            jumbledLettersContainer.innerHTML = '';
+            answerBoxesContainer.innerHTML = '';
+            resultMessage.textContent = '';
+            resultMessage.classList.remove('show');
+
+            word.jumbled.split('').forEach(letter => {
+                const letterBox = document.createElement('div');
+                letterBox.className = 'letter-box';
+                letterBox.textContent = letter;
+                jumbledLettersContainer.appendChild(letterBox);
+            });
+
+            word.correct.split('').forEach(() => {
+                const inputBox = document.createElement('input');
+                inputBox.type = 'text';
+                inputBox.maxLength = 1;
+                inputBox.className = 'input-box';
+                inputBox.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.toUpperCase();
+                });
+                answerBoxesContainer.appendChild(inputBox);
+            });
+
+            const answerBoxes = document.querySelectorAll("#answer-boxes input");
+            answerBoxes.forEach((box, index) => {
+                box.addEventListener('input', (e) => {
+                    if (e.inputType !== 'deleteContentBackward' && box.value.length === 1) {
+                        if (index < answerBoxes.length - 1) {
+                            answerBoxes[index + 1].focus();
+                        }
+                    }
+                    checkWord();
+                });
+
+                box.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && box.value === '') {
+                        if (index > 0) {
+                            answerBoxes[index - 1].focus();
+                        }
+                    }
+                });
+            });
+
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                clearAnswerBoxes();
+            }, 10000);
+        }
+
+        function fillAnswerBoxes(word) {
+            const answerBoxes = document.querySelectorAll("#answer-boxes input");
+            for (let i = 0; i < answerBoxes.length; i++) {
+                answerBoxes[i].value = word[i] || '';
+            }
+        }
+
+        function checkWord() {
+            const answerBoxes = document.querySelectorAll("#answer-boxes input");
+            const userWord = Array.from(answerBoxes).map(box => box.value).join('');
+            if (userWord.length === words[currentWordIndex].correct.length) {
+                if (userWord === words[currentWordIndex].correct) {
+                    resultMessage.innerHTML = "Correct! 😊";
+                    resultMessage.classList.add("text-green-500");
+                    resultMessage.classList.remove("text-red-500");
+                    resultMessage.classList.add('show');
+                    document.querySelector('.container').classList.add('correct');
+                    setTimeout(() => {
+                        document.querySelector('.container').classList.remove('correct');
+                        currentWordIndex = (currentWordIndex + 1) % words.length;
+                        loadWord(currentWordIndex);
+                    }, 1000);
+                } else {
+                    resultMessage.innerHTML = "Incorrect, please try again. 😞";
+                    resultMessage.classList.add("text-red-500");
+                    resultMessage.classList.remove("text-green-500");
+                    resultMessage.classList.add('show');
+                    setTimeout(() => {
+                        clearAnswerBoxes();
+                    }, 5000);
+                }
+            }
+        }
+
+        function clearAnswerBoxes() {
+            const answerBoxes = document.querySelectorAll("#answer-boxes input");
+            answerBoxes.forEach(box => box.value = '');
+            answerBoxes[0].focus();
+        }
+
+        document.getElementById("speak-btn").addEventListener("click", () => {
+            recognition.start();
+        });
+
+        document.getElementById("show-answer-btn").addEventListener("click", () => {
+            fillAnswerBoxes(words[currentWordIndex].correct);
+            resultMessage.textContent = "The correct word is shown.";
+            resultMessage.classList.add("text-blue-500");
+            resultMessage.classList.add('show');
+            setTimeout(() => {
+                resultMessage.textContent = "";
+                resultMessage.classList.remove("text-blue-500");
+                resultMessage.classList.remove('show');
+                currentWordIndex = (currentWordIndex + 1) % words.length;
+                loadWord(currentWordIndex);
+            }, 3000);
+        });
+
+        // Speech recognition setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.onresult = function(event) {
+            const spokenWord = event.results[0][0].transcript.toUpperCase();
+            fillAnswerBoxes(spokenWord);
+            checkWord();
+        };
+
+        fetchWords(); // Fetch words based on difficulty level from URL
+    </script>
+</body>
+</html>
